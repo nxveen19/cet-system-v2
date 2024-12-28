@@ -1,0 +1,56 @@
+components:
+- layout_properties: {grid_position: 'MVHJHC,BMYZPO'}
+  name: rich_text_1
+  properties: {content: Customer Input Form, font_size: 19}
+  type: RichText
+- layout_properties: {grid_position: 'ATRDPC,IPPYUU'}
+  name: label_1
+  properties: {bold: false, text: 'Name                  :'}
+  type: Label
+- data_bindings:
+  - {code: 'self.item[''name'']', property: text, writeback: false}
+  layout_properties: {grid_position: 'ATRDPC,AHPIJY'}
+  name: name
+  properties: {}
+  type: TextBox
+- layout_properties: {grid_position: 'FMXSGR,GEOHQD'}
+  name: label_2
+  properties: {text: 'Post Code           : '}
+  type: Label
+- data_bindings:
+  - {code: 'self.item[''post_code'']', property: text, writeback: false}
+  layout_properties: {grid_position: 'FMXSGR,CXQWSU'}
+  name: post_code
+  properties: {}
+  type: TextBox
+- layout_properties: {grid_position: 'XVBIOG,KHVIBQ'}
+  name: label_4
+  properties: {text: 'Phone No            :'}
+  type: Label
+- data_bindings: []
+  layout_properties: {grid_position: 'XVBIOG,HXQRAA'}
+  name: phone
+  properties: {}
+  type: TextBox
+- layout_properties: {grid_position: 'XBLIHL,UHEMJD'}
+  name: label_5
+  properties: {text: 'E-mail                  :'}
+  type: Label
+- data_bindings:
+  - {code: 'self.item[''email'']', property: text, writeback: false}
+  layout_properties: {grid_position: 'XBLIHL,MYMIGR'}
+  name: email
+  properties: {}
+  type: TextBox
+- layout_properties: {grid_position: 'MAFQNM,ZNNBYN'}
+  name: label_6
+  properties: {text: 'Physical Address :'}
+  type: Label
+- data_bindings:
+  - {code: 'self.item[''address'']', property: text, writeback: false}
+  layout_properties: {grid_position: 'MAFQNM,ZYEXSU'}
+  name: address
+  properties: {}
+  type: TextArea
+container: {type: ColumnPanel}
+is_package: true

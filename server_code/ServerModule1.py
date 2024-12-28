@@ -4,7 +4,9 @@ from anvil.tables import app_tables
 import anvil.server
 
 @anvil.server.callable
-def add_movie(customer_data):
-  if movie_data.get('direct') and movie_data.get('movie_name') and movie_data.get('summary') and movie_data.get('year'):
-      app_tables.movies.add_row(**movie_data)n 42
-#
+def add_customer(customer_data):
+  if customer_data.get('name') and customer_data.get('post_code') and customer_data.get('phone') and customer_data.get('email') and customer_data.get('address'):
+    print("Received customer data:", customer_data)
+    app_tables.customers.add_row(**customer_data)
+  else:
+    print("missing")
