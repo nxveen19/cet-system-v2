@@ -17,4 +17,7 @@ def update_customer(customer, customer_data):
   # customer_data = {} items from CustomerEdit are appended into it
   if customer_data['name'] and customer_data['post_code'] and customer_data['phone'] and customer_data['phone'] and customer_data['address']:
     customer.update(**customer_data)
+@anvil.server.callable
+def delete_customer(customer):
+    customer.delete()
   

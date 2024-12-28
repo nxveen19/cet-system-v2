@@ -8,12 +8,12 @@ components:
     name: data_grid_1
     properties:
       columns:
+      - {data_key: column_1, id: WONJQS, title: Customise}
       - {data_key: name, expand: true, id: ABMDEU, title: Name}
       - {data_key: post_code, expand: true, id: ULBGTU, title: Post Code}
       - {data_key: phone, expand: true, id: MNAMPH, title: Phone}
       - {data_key: email, expand: true, id: UZSEUD, title: Email}
       - {data_key: address, expand: true, id: TUVXCC, title: Address}
-      - {data_key: column_1, id: WONJQS, title: Column 1}
     type: DataGrid
   - event_bindings: {click: add_customer_info_click}
     layout_properties: {grid_position: 'FKXTKY,VTKGQB'}

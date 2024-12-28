@@ -12,3 +12,9 @@ class RowTemplate1(RowTemplate1Template):
     self.init_components(**properties)
 
     # Any code you write here will run before the form opens.
+# customer ko db se nahi data grid me elements se access kr rhe hai by = customer
+  def edit_row_click(self, **event_args):
+    self.parent.raise_event('x-edit-customer', customer=self.item)
+
+  def delete_row_click(self, **event_args):
+    self.parent.raise_event('x-delete-customer', customer=self.item)
