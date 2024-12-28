@@ -9,6 +9,7 @@ from anvil.tables import app_tables
 class CustomerEdit(CustomerEditTemplate):
  def __init__(self, item, **properties):
         # Set the item property
+   # self.item here =  elements from item = {} one by one
   self.item = item
   self.init_components(**properties)
   self.init_components(**properties)

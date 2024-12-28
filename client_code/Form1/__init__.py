@@ -18,11 +18,11 @@ class Form1(Form1Template):
   def add_customer_info_click(self, **event_args):
     item = {}
     editing_form = CustomerEdit(item=item)
-    if alert(content=editing_form, large=True):
+    if alert(content=editing_form, large=True): # matlab kab OK button jabaunga
     #add the movie to the Data Table with the filled in information
       print("Item data:", item)
       # print("hello world")
-      anvil.server.call('add_customer', item)
+      anvil.server.call('add_customer', item) # item is dict{}
     #refresh the Data Grid
       self.customer_grid.items = app_tables.customers.search()
   def edit_customer(self, customer, **event_args):
@@ -41,6 +41,8 @@ class Form1(Form1Template):
       anvil.server.call('delete_customer', customer)
     #refresh the Data Grid
       self.customer_grid.items = app_tables.customers.search()
+
+########## Sales Details : date, type, products, order value, discount, commission, notes
 
 
 

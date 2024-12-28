@@ -1,0 +1,7 @@
+components:
+- layout_properties: {column: NZZRSM}
+  name: drop_down_1
+  properties: {}
+  type: DropDown
+container: {type: DataRowPanel}
+is_package: true

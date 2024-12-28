@@ -1,5 +1,9 @@
 components:
 - components:
+  - layout_properties: {grid_position: 'HKSXCA,XCRCBG'}
+    name: label_2
+    properties: {bold: true, text: Customer Contact Details}
+    type: Label
   - components:
     - name: customer_grid
       properties: {item_template: Form1.RowTemplate1}
@@ -20,6 +24,27 @@ components:
     name: add_customer_info
     properties: {text: Add Customer}
     type: Button
+  - layout_properties: {grid_position: 'LGODUY,MHJKPA'}
+    name: label_3
+    properties: {bold: true, text: Sales Details}
+    type: Label
+  - components:
+    - name: repeating_panel_1
+      properties: {item_template: Form1.RowTemplate2}
+      type: RepeatingPanel
+    layout_properties: {grid_position: 'SMHBIZ,IPCCZU'}
+    name: data_grid_2
+    properties:
+      columns:
+      - {data_key: column_1, expand: true, id: JKSDUP, title: Operations}
+      - {data_key: date, expand: true, id: PEFSKX, title: Date of Sale}
+      - {data_key: type, expand: true, id: NZZRSM, title: 'Type of Sale '}
+      - {data_key: products, expand: true, id: WOIFLQ, title: Products Sold}
+      - {data_key: order_value, expand: true, id: RGNRUO, title: Order Value}
+      - {data_key: discount, expand: true, id: FBGFJE, title: Discount}
+      - {data_key: commission, expand: true, id: CJKXZB, title: Commission}
+      - {data_key: notes, expand: true, id: DWZCIZ, title: Notes}
+    type: DataGrid
   layout_properties: {slot: default}
   name: content_panel
   properties: {col_widths: '{}'}
