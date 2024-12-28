@@ -13,6 +13,7 @@ components:
       - {data_key: phone, expand: true, id: MNAMPH, title: Phone}
       - {data_key: email, expand: true, id: UZSEUD, title: Email}
       - {data_key: address, expand: true, id: TUVXCC, title: Address}
+      - {data_key: column_1, id: WONJQS, title: Column 1}
     type: DataGrid
   - event_bindings: {click: add_customer_info_click}
     layout_properties: {grid_position: 'FKXTKY,VTKGQB'}

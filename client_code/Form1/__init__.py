@@ -12,6 +12,7 @@ class Form1(Form1Template):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
     self.customer_grid.items = app_tables.customers.search()
+    self.customer_grid.add_event_handler('x-edit-customer', self.edit_customer)
 
   def add_customer_info_click(self, **event_args):
     item = {}
@@ -21,6 +22,17 @@ class Form1(Form1Template):
       print("Item data:", item)
       print("hello world")
       anvil.server.call('add_customer', item)
+    #refresh the Data Grid
+      self.customer_grid.items = app_tables.customers.search()
+  def edit_customer(self, customer, **event_args):
+  #movie is the row from the Data Table
+    item = dict(customer)
+    editing_form = CustomerEdit(item=item) # item is name,place, email, phone, add
+
+  #if the user clicks OK on the alert
+    if alert(content=editing_form, large=True):
+    #pass in the Data Table row and the updated info
+      anvil.server.call('update_customer', customer, item)
     #refresh the Data Grid
       self.customer_grid.items = app_tables.customers.search()
 

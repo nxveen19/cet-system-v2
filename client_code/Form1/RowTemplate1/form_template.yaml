@@ -1,3 +1,12 @@
-components: []
+components:
+- components:
+  - layout_properties: {}
+    name: edit_row
+    properties: {text: Edit}
+    type: Button
+  layout_properties: {column: WONJQS}
+  name: flow_panel_1
+  properties: {}
+  type: FlowPanel
 container: {type: DataRowPanel}
 is_package: true
