@@ -8,7 +8,7 @@ components:
   properties: {bold: false, text: 'Name                  :'}
   type: Label
 - data_bindings:
-  - {code: 'self.item[''name'']', property: text, writeback: false}
+  - {code: 'self.item[''name'']', property: text, writeback: true}
   layout_properties: {grid_position: 'ATRDPC,AHPIJY'}
   name: name
   properties: {}
@@ -18,7 +18,7 @@ components:
   properties: {text: 'Post Code           : '}
   type: Label
 - data_bindings:
-  - {code: 'self.item[''post_code'']', property: text, writeback: false}
+  - {code: 'self.item[''post_code'']', property: text, writeback: true}
   layout_properties: {grid_position: 'FMXSGR,CXQWSU'}
   name: post_code
   properties: {}
@@ -27,7 +27,8 @@ components:
   name: label_4
   properties: {text: 'Phone No            :'}
   type: Label
-- data_bindings: []
+- data_bindings:
+  - {code: 'self.item[''phone'']', property: text, writeback: true}
   layout_properties: {grid_position: 'XVBIOG,HXQRAA'}
   name: phone
   properties: {}
@@ -37,7 +38,7 @@ components:
   properties: {text: 'E-mail                  :'}
   type: Label
 - data_bindings:
-  - {code: 'self.item[''email'']', property: text, writeback: false}
+  - {code: 'self.item[''email'']', property: text, writeback: true}
   layout_properties: {grid_position: 'XBLIHL,MYMIGR'}
   name: email
   properties: {}
@@ -47,7 +48,7 @@ components:
   properties: {text: 'Physical Address :'}
   type: Label
 - data_bindings:
-  - {code: 'self.item[''address'']', property: text, writeback: false}
+  - {code: 'self.item[''address'']', property: text, writeback: true}
   layout_properties: {grid_position: 'MAFQNM,ZYEXSU'}
   name: address
   properties: {}
