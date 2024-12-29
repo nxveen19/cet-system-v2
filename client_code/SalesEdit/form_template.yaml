@@ -1,0 +1,67 @@
+components:
+- layout_properties: {grid_position: 'LEJYWG,FIDWJG'}
+  name: label_1
+  properties: {bold: true, font_size: 22, text: Sales Details Form}
+  type: Label
+- layout_properties: {grid_position: 'BXQRJG,JGTNFM'}
+  name: label_3
+  properties: {text: 'Type Of Sale                      :'}
+  type: Label
+- data_bindings:
+  - {code: 'self.item[''type'']', property: text, writeback: true}
+  layout_properties: {grid_position: 'BXQRJG,DORALH'}
+  name: type
+  properties: {}
+  type: TextBox
+- layout_properties: {grid_position: 'LLKAOO,RJGLRT'}
+  name: label_4
+  properties: {text: 'Products Sold                     :'}
+  type: Label
+- data_bindings:
+  - {code: 'self.item[''products_sold'']', property: text, writeback: true}
+  layout_properties: {grid_position: 'LLKAOO,OBJTRT'}
+  name: products_sold
+  properties: {}
+  type: TextArea
+- layout_properties: {grid_position: 'WYCKQU,ZDSSLQ'}
+  name: label_5
+  properties: {text: 'Order Value                        :'}
+  type: Label
+- data_bindings:
+  - {code: 'self.item[''order_value'']', property: text, writeback: true}
+  layout_properties: {grid_position: 'WYCKQU,MRIDDA'}
+  name: order_value
+  properties: {}
+  type: TextBox
+- layout_properties: {grid_position: 'DDLLLN,KEPRFQ'}
+  name: label_6
+  properties: {text: 'Discount Given(%)             :'}
+  type: Label
+- data_bindings:
+  - {code: 'self.item[''discount'']', property: text, writeback: true}
+  layout_properties: {grid_position: 'DDLLLN,LZZXQC'}
+  name: discount
+  properties: {}
+  type: TextBox
+- layout_properties: {grid_position: 'ZZBDOE,JXHLFZ'}
+  name: label_7
+  properties: {text: 'Commssion Applicable       :'}
+  type: Label
+- data_bindings:
+  - {code: 'self.item[''commission'']', property: text, writeback: true}
+  layout_properties: {grid_position: 'ZZBDOE,JVVOFV'}
+  name: commission
+  properties: {}
+  type: TextBox
+- layout_properties: {grid_position: 'RXHVAL,KZYEJK'}
+  name: label_8
+  properties: {text: 'Notes(optional)                   :'}
+  type: Label
+- data_bindings:
+  - {code: 'self.item[''notes'']', property: text, writeback: true}
+  layout_properties: {grid_position: 'AODFIX,XWVPTE'}
+  name: notes
+  properties: {}
+  type: TextArea
+container: {type: ColumnPanel}
+is_package: true

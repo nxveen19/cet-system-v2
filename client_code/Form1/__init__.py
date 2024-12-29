@@ -5,6 +5,7 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 from ..CustomerEdit import CustomerEdit
+from ..SalesEdit import SalesEdit
 
 
 class Form1(Form1Template):
@@ -12,8 +13,12 @@ class Form1(Form1Template):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
     self.customer_grid.items = app_tables.customers.search()
+    self.sales_grid.items = app_tables.sales.search()
     self.customer_grid.add_event_handler('x-edit-customer', self.edit_customer)
     self.customer_grid.add_event_handler('x-delete-customer', self.delete_customer)
+
+    self.sales_grid.add_event_handler('x-edit-sale', self.edit_sale)
+    self.sales_grid.add_event_handler('x-delete-sale', self.delete_sale)
 
   def add_customer_info_click(self, **event_args):
     item = {}
@@ -44,6 +49,33 @@ class Form1(Form1Template):
 
 ########## Sales Details : date, type, products, order value, discount, commission, notes
 
+  def add_sales_details_click(self, **event_args):
+    item = {}
+    editing_form = SalesEdit(item=item)
+    if alert(content=editing_form, large=True): # matlab kab OK button jabaunga
+    #add the movie to the Data Table with the filled in information
+      print("Item data:", item)
+      # print("hello world")
+      anvil.server.call('add_sales', item) # item is dict{}
+    #refresh the Data Grid
+      self.sales_grid.items = app_tables.sales.search()
+  def edit_sale(self, sale, **event_args):
+  #movie is the row from the Data Table
+    item = dict(sale)
+    editing_form = SalesEdit(item=item) # item is name,place, email, phone, add
+
+  #if the user clicks OK on the alert
+    if alert(content=editing_form, large=True):
+    #pass in the Data Table row and the updated info
+      anvil.server.call('update_sale', sale, item)
+    #refresh the Data Grid
+      self.sales_grid.items = app_tables.sales.search()
+  def delete_sale(self, sale, **event_args):
+    if confirm(f"Do you really want to delete the customer row {sale['type']}?"):
+      anvil.server.call('delete_sale', sale)
+      print(sale)
+    #refresh the Data Grid
+      self.sales_grid.items = app_tables.sales.search()
 
 
 
