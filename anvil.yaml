@@ -44,6 +44,9 @@ db_schema:
     - admin_ui: {order: 6, width: 200}
       name: notes
       type: string
+    - admin_ui: {order: 5.5, width: 200}
+      name: calculated_commission
+      type: number
     server: full
     title: sales
 dependencies: []

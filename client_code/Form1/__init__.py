@@ -57,8 +57,10 @@ class Form1(Form1Template):
       print("Item data:", item)
       # print("hello world")
       anvil.server.call('add_sales', item) # item is dict{}
+      # self.refresh_sales_grid()
     #refresh the Data Grid
       self.sales_grid.items = app_tables.sales.search()
+      
   def edit_sale(self, sale, **event_args):
   #movie is the row from the Data Table
     item = dict(sale)
@@ -68,14 +70,46 @@ class Form1(Form1Template):
     if alert(content=editing_form, large=True):
     #pass in the Data Table row and the updated info
       anvil.server.call('update_sale', sale, item)
+      # self.refresh_sales_grid()
     #refresh the Data Grid
       self.sales_grid.items = app_tables.sales.search()
   def delete_sale(self, sale, **event_args):
     if confirm(f"Do you really want to delete the customer row {sale['type']}?"):
       anvil.server.call('delete_sale', sale)
+      self.refresh_sales_grid()
       print(sale)
     #refresh the Data Grid
       self.sales_grid.items = app_tables.sales.search()
+
+  # def calculate_commission_click(self, sale, **event_args):
+  #   item = dict(sale)
+  def get_sales_with_commission(self):
+    # Calculate and include commission for each sale
+    sales_with_commission = []
+    for sale in app_tables.sales.search():
+      item = dict(sale)
+      print(f'item is {item}')
+      print(f"sale is {sale}")
+      commission_percentage = item['commission']
+          
+      if commission_percentage > 0:
+          commission = (item['order_value'] - item['discount']) / commission_percentage
+          print(commission)
+      else:
+          commission = 0
+      sale.update(calculated_commission=commission)
+      sales_with_commission.append({
+        **item,
+        'calculated_commission': commission})
+
+    # Return the list of sales with commission included
+      print(sales_with_commission)
+      return sales_with_commission
+
+  def refresh_sales_grid(self):
+    self.sales_grid.items = self.get_sales_with_commission()
+    
+    
 
 
 
