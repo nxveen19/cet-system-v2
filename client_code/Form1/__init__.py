@@ -19,6 +19,7 @@ class Form1(Form1Template):
 
     self.sales_grid.add_event_handler('x-edit-sale', self.edit_sale)
     self.sales_grid.add_event_handler('x-delete-sale', self.delete_sale)
+    self.refresh_sales_grid()
 
   def add_customer_info_click(self, **event_args):
     item = {}
@@ -52,12 +53,13 @@ class Form1(Form1Template):
   def add_sales_details_click(self, **event_args):
     item = {}
     editing_form = SalesEdit(item=item)
-    if alert(content=editing_form, large=True): # matlab kab OK button jabaunga
+    if alert(content=editing_form, large=True): # matlab jab OK button jabaunga
     #add the movie to the Data Table with the filled in information
       print("Item data:", item)
       # print("hello world")
-      anvil.server.call('add_sales', item) # item is dict{}
-      # self.refresh_sales_grid()
+      new_sale = anvil.server.call('add_sales', item) # item is dict{} and new_sale is row in db
+      self.calculate_and_update_commission(new_sale)
+      
     #refresh the Data Grid
       self.sales_grid.items = app_tables.sales.search()
       
@@ -70,9 +72,11 @@ class Form1(Form1Template):
     if alert(content=editing_form, large=True):
     #pass in the Data Table row and the updated info
       anvil.server.call('update_sale', sale, item)
-      # self.refresh_sales_grid()
+      
     #refresh the Data Grid
+      self.calculate_and_update_commission(sale)
       self.sales_grid.items = app_tables.sales.search()
+      self.refresh_sales_grid()
   def delete_sale(self, sale, **event_args):
     if confirm(f"Do you really want to delete the customer row {sale['type']}?"):
       anvil.server.call('delete_sale', sale)
@@ -83,31 +87,26 @@ class Form1(Form1Template):
 
   # def calculate_commission_click(self, sale, **event_args):
   #   item = dict(sale)
-  def get_sales_with_commission(self):
-    # Calculate and include commission for each sale
-    sales_with_commission = []
-    for sale in app_tables.sales.search():
-      item = dict(sale)
-      print(f'item is {item}')
-      print(f"sale is {sale}")
-      commission_percentage = item['commission']
-          
-      if commission_percentage > 0:
-          commission = (item['order_value'] - item['discount']) / commission_percentage
-          print(commission)
-      else:
-          commission = 0
-      sale.update(calculated_commission=commission)
-      sales_with_commission.append({
-        **item,
-        'calculated_commission': commission})
+  def calculate_and_update_commission(self, sale):
+        # Calculate commission for the given sale row
+        item = dict(sale)
+        commission_percentage = item['commission']
 
-    # Return the list of sales with commission included
-      print(sales_with_commission)
-      return sales_with_commission
+        if commission_percentage > 0:
+            commission = round((item['order_value'] - item['discount']) * (commission_percentage / 100))
+            print(f"Calculated commission: {commission}")
+        else:
+            commission = 0
+
+        # Update only the 'calculated_commission' for this specific sale
+        sale.update(calculated_commission=commission)
+
+        # Optionally update the grid to reflect the new commission
+        self.refresh_sales_grid()  # Refresh the grid to show updated commission
 
   def refresh_sales_grid(self):
-    self.sales_grid.items = self.get_sales_with_commission()
+        # Refresh only the grid's items based on the updated sales data
+    self.sales_grid.items = app_tables.sales.search()
     
     
 

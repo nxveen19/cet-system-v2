@@ -28,10 +28,10 @@ def add_sales(sales_data):
   sales_data['date'] = today
   if sales_data.get('type') and sales_data.get('products_sold') and sales_data.get('order_value') and sales_data.get('discount') and sales_data.get('commission') or sales_data.get('notes'):
     print("Received customer data:", sales_data)
-    app_tables.sales.add_row(**sales_data)
-    app_tables.sales.add_row()
+    new_sale = app_tables.sales.add_row(**sales_data)
   else:
     print("missing")
+  return new_sale
 @anvil.server.callable
 # db customer jo ki argument hai, takes customer list as customer_data.it is rep as json file
 # server me update fn(it connects directly to db)
