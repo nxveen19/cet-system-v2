@@ -76,7 +76,6 @@ class Form1(Form1Template):
     #refresh the Data Grid
       self.calculate_and_update_commission(sale)
       self.sales_grid.items = app_tables.sales.search()
-      self.refresh_sales_grid()
   def delete_sale(self, sale, **event_args):
     if confirm(f"Do you really want to delete the customer row {sale['type']}?"):
       anvil.server.call('delete_sale', sale)
