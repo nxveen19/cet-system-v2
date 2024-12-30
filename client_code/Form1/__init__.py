@@ -5,6 +5,7 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 from ..CustomerEdit import CustomerEdit
+from ..SalesForm import SalesForm
 from ..SalesEdit import SalesEdit
 from ..OrdersEdit import OrdersEdit
 
@@ -131,6 +132,9 @@ class Form1(Form1Template):
     order.update(outstanding_balance=outstanding_balance)
     self.orders_grid.items = app_tables.orders.search()
     #self.refresh_sales_grid()  # Refresh the grid to show updated commission
+
+  def go_to_sales_click(self, **event_args):
+     open_form(SalesForm())  # Navigate to the SalesForm
     
     
 

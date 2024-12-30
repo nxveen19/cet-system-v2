@@ -75,7 +75,13 @@ components:
   name: content_panel
   properties: {col_widths: '{}'}
   type: ColumnPanel
-- layout_properties: {slot: nav-right}
+- components:
+  - event_bindings: {click: go_to_sales_click}
+    layout_properties: {}
+    name: go_to_sales
+    properties: {role: outlined-button, text: Go To Sales}
+    type: Button
+  layout_properties: {slot: nav-right}
   name: navbar_links
   properties: {}
   type: FlowPanel
