@@ -3,6 +3,16 @@ components:
   name: label_1
   properties: {bold: true, font_size: 22, text: Sales Details Form}
   type: Label
+- layout_properties: {grid_position: 'JPKSMD,KGXWNQ'}
+  name: label_2
+  properties: {text: 'Customer Reference         :'}
+  type: Label
+- data_bindings:
+  - {code: 'self.item[''customer_ref'']', property: text, writeback: true}
+  layout_properties: {grid_position: 'JPKSMD,WXQDVP'}
+  name: customer_ref
+  properties: {}
+  type: TextBox
 - layout_properties: {grid_position: 'BXQRJG,JGTNFM'}
   name: label_3
   properties: {text: 'Type Of Sale                      :'}

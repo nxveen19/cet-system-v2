@@ -18,6 +18,9 @@ db_schema:
     - admin_ui: {order: 4, width: 200}
       name: address
       type: string
+    - admin_ui: {order: 5, width: 200}
+      name: customer_ref_id
+      type: string
     server: full
     title: customers
   orders:
@@ -44,6 +47,12 @@ db_schema:
     - admin_ui: {order: 1.75, width: 200}
       name: order_value
       type: number
+    - admin_ui: {order: 0.5, width: 200}
+      name: customer_ref
+      type: string
+    - admin_ui: {order: 0.75, width: 200}
+      name: customer_ref_id
+      type: string
     server: full
     title: orders
   sales:
@@ -75,6 +84,12 @@ db_schema:
       type: number
     - admin_ui: {order: -1, width: 200}
       name: order_id
+      type: string
+    - admin_ui: {order: -0.5, width: 200}
+      name: customer_ref_id
+      type: string
+    - admin_ui: {order: -0.25, width: 200}
+      name: customer_ref
       type: string
     server: full
     title: sales

@@ -9,6 +9,10 @@ components:
     name: delete_row
     properties: {icon: 'fa:trash', text: ''}
     type: Button
+  - event_bindings: {click: add_customer_sale_click}
+    name: add_customer_sale
+    properties: {icon: 'fa:plus', text: ''}
+    type: Button
   layout_properties: {column: WONJQS}
   name: flow_panel_1
   properties: {}

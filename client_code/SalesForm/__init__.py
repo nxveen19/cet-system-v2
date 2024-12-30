@@ -4,8 +4,6 @@ import anvil.server
 import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
-from ..Form1 import Form1
-from ..OrdersForm import OrdersForm
 from ..CustomerEdit import CustomerEdit
 from ..SalesEdit import SalesEdit
 from ..OrdersEdit import OrdersEdit
@@ -15,8 +13,6 @@ class SalesForm(SalesFormTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
-    self.sales_grid.items = app_tables.sales.search()
-
     self.sales_grid.add_event_handler("x-edit-sale", self.edit_sale)
     self.sales_grid.add_event_handler("x-delete-sale", self.delete_sale)
     self.refresh_sales_grid()
@@ -68,7 +64,7 @@ class SalesForm(SalesFormTemplate):
 
     if commission_percentage > 0:
       commission = round(
-        (item["order_value"] - item["discount"]) * (commission_percentage / 100)
+        (item["order_value"]) * (commission_percentage / 100)
       )
       print(f"Calculated commission: {commission}")
     else:
@@ -111,7 +107,7 @@ class SalesForm(SalesFormTemplate):
   #   # self.refresh_sales_grid()  # Refresh the grid to show updated commission
 
   def go_to_home_click(self, **event_args):
-    open_form(Form1())
+    open_form('Form1')
 
   def go_to_orders_click(self, **event_args):
-    open_form(OrdersForm())
+    open_form('OrdersForm')

@@ -6,13 +6,14 @@ components:
     type: Label
   - components:
     - name: sales_grid
-      properties: {item_template: Form1.RowTemplate2}
+      properties: {item_template: SalesForm.RowTemplate2}
       type: RepeatingPanel
     layout_properties: {grid_position: 'SMHBIZ,IPCCZU'}
     name: data_grid_2
     properties:
       columns:
       - {data_key: operations, expand: true, id: JKSDUP, title: Operations}
+      - {data_key: customer_ref, expand: true, id: CZFSIO, title: Customer Reference}
       - {data_key: date, expand: true, id: PEFSKX, title: Date of Sale}
       - {data_key: type, expand: true, id: NZZRSM, title: 'Type of Sale '}
       - {data_key: products_sold, expand: true, id: WOIFLQ, title: Products Sold}

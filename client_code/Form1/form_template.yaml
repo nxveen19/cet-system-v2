@@ -24,53 +24,6 @@ components:
     name: add_customer_info
     properties: {text: Add Customer}
     type: Button
-  - layout_properties: {grid_position: 'LGODUY,MHJKPA'}
-    name: label_3
-    properties: {bold: true, font_size: 17, text: Sales Details}
-    type: Label
-  - components:
-    - name: sales_grid
-      properties: {item_template: Form1.RowTemplate2}
-      type: RepeatingPanel
-    layout_properties: {grid_position: 'SMHBIZ,IPCCZU'}
-    name: data_grid_2
-    properties:
-      columns:
-      - {data_key: operations, expand: true, id: JKSDUP, title: Operations}
-      - {data_key: date, expand: true, id: PEFSKX, title: Date of Sale}
-      - {data_key: type, expand: true, id: NZZRSM, title: 'Type of Sale '}
-      - {data_key: products_sold, expand: true, id: WOIFLQ, title: Products Sold}
-      - {data_key: order_value, expand: true, id: RGNRUO, title: Order Value}
-      - {data_key: discount, expand: true, id: FBGFJE, title: Discount}
-      - {data_key: commission, expand: true, id: CJKXZB, title: Commission}
-      - {data_key: calculated_commission, id: ZTPMSD, title: Calculate Commission}
-      - {data_key: notes, expand: true, id: DWZCIZ, title: Notes}
-    type: DataGrid
-  - event_bindings: {click: add_sales_details_click}
-    layout_properties: {grid_position: 'BJHQTN,ORBLXD'}
-    name: add_sales_details
-    properties: {role: outlined-button, text: Add Sales Details}
-    type: Button
-  - layout_properties: {grid_position: 'WRVCFZ,INPSWF'}
-    name: label_4
-    properties: {bold: true, font_size: 17, text: Order Processing Details}
-    type: Label
-  - components:
-    - name: orders_grid
-      properties: {item_template: Form1.RowTemplate3}
-      type: RepeatingPanel
-    layout_properties: {grid_position: 'AEJTDQ,YJYCXE'}
-    name: data_grid_3
-    properties:
-      columns:
-      - {data_key: operations, expand: true, id: OJLQEN, title: Operations}
-      - {data_key: status, expand: true, id: CMTCEQ, title: Status Of Order}
-      - {data_key: installation_status, expand: true, id: AYDYME, title: Installation Status}
-      - {data_key: order_value, expand: true, id: GJVYEH, title: Order Value}
-      - {data_key: deposit_amount, expand: true, id: BFMFIP, title: Deposit Amount}
-      - {data_key: final_amount, expand: true, id: YZOXEK, title: Final Amount}
-      - {data_key: outstanding_balance, expand: true, id: ZUHHGV, title: Outstanding Balance}
-    type: DataGrid
   layout_properties: {slot: default}
   name: content_panel
   properties: {col_widths: '{}'}

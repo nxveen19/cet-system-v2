@@ -5,8 +5,6 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 from ..CustomerEdit import CustomerEdit
-from ..SalesForm import SalesForm
-from ..Form1 import Form1
 from ..SalesEdit import SalesEdit
 from ..OrdersEdit import OrdersEdit
 
@@ -49,7 +47,7 @@ class OrdersForm(OrdersFormTemplate):
     # self.refresh_sales_grid()  # Refresh the grid to show updated commission
 
   def back_to_customer_click(self, **event_args):
-    open_form(Form1())  # Navigate to the SalesForm
+    open_form('Form1')  # Navigate to the SalesForm
 
   def go_to_sales_click(self, **event_args):
-    open_form(SalesForm())
+    open_form('SalesForm')
