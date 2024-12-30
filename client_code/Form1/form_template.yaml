@@ -63,9 +63,12 @@ components:
     name: data_grid_3
     properties:
       columns:
-      - {data_key: column_1, id: JKSDUP, title: Column 1}
-      - {data_key: column_2, id: VJQQOR, title: Column 2}
       - {data_key: column_3, id: OJLQEN, title: Column 3}
+      - {data_key: status, id: CMTCEQ, title: Status Of Order}
+      - {data_key: intallation_status, id: AYDYME, title: Installation Status}
+      - {data_key: deposit_amount, id: BFMFIP, title: Deposit Amount}
+      - {data_key: final_amount, id: YZOXEK, title: Final Amount}
+      - {data_key: outstanding_balance, id: ZUHHGV, title: Outstanding Balance}
     type: DataGrid
   layout_properties: {slot: default}
   name: content_panel
