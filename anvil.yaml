@@ -20,6 +20,29 @@ db_schema:
       type: string
     server: full
     title: customers
+  orders:
+    client: full
+    columns:
+    - admin_ui: {order: 1, width: 200}
+      name: status
+      type: string
+    - admin_ui: {order: 2, width: 200}
+      name: deposit
+      type: number
+    - admin_ui: {order: 3, width: 200}
+      name: final_amount
+      type: number
+    - admin_ui: {order: 4, width: 200}
+      name: outstanding_balance
+      type: number
+    - admin_ui: {order: 1.5, width: 200}
+      name: intallation_status
+      type: string
+    - admin_ui: {order: 0, width: 200}
+      name: order_id
+      type: string
+    server: full
+    title: orders
   sales:
     client: full
     columns:
@@ -47,6 +70,9 @@ db_schema:
     - admin_ui: {order: 5.5, width: 200}
       name: calculated_commission
       type: number
+    - admin_ui: {order: -1, width: 200}
+      name: order_id
+      type: string
     server: full
     title: sales
 dependencies: []

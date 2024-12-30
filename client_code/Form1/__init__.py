@@ -84,8 +84,6 @@ class Form1(Form1Template):
     #refresh the Data Grid
       self.sales_grid.items = app_tables.sales.search()
 
-  # def calculate_commission_click(self, sale, **event_args):
-  #   item = dict(sale)
   def calculate_and_update_commission(self, sale):
         # Calculate commission for the given sale row
         item = dict(sale)
@@ -106,6 +104,10 @@ class Form1(Form1Template):
   def refresh_sales_grid(self):
         # Refresh only the grid's items based on the updated sales data
     self.sales_grid.items = app_tables.sales.search()
+
+  #############Order Processing status table#############
+
+
     
     
 

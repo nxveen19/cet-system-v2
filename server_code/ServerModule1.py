@@ -3,6 +3,8 @@ import anvil.tables.query as q
 from anvil.tables import app_tables
 import anvil.server
 from datetime import datetime
+import uuid
+
 @anvil.server.callable
 def add_customer(customer_data):
   if customer_data.get('name') and customer_data.get('post_code') and customer_data.get('phone') and customer_data.get('email') and customer_data.get('address'):
@@ -26,6 +28,8 @@ def delete_customer(customer):
 def add_sales(sales_data):
   today = datetime.now().date()
   sales_data['date'] = today
+  order_id = str(uuid.uuid4())  # Generates a unique string like 'c9b1b3d8-8f93-45ea-a8f7-8e1f6b1d333f'
+  sales_data['order_id'] = order_id
   if sales_data.get('type') and sales_data.get('products_sold') and sales_data.get('order_value') and sales_data.get('discount') and sales_data.get('commission') or sales_data.get('notes'):
     print("Received customer data:", sales_data)
     new_sale = app_tables.sales.add_row(**sales_data)
