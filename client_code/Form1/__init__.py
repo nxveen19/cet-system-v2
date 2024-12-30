@@ -107,6 +107,7 @@ class Form1(Form1Template):
   def refresh_sales_grid(self):
         # Refresh only the grid's items based on the updated sales data
     self.sales_grid.items = app_tables.sales.search()
+    self.orders_grid.items = app_tables.orders.search()
 
   #############Order Processing status table#############
 
@@ -115,19 +116,20 @@ class Form1(Form1Template):
     editing_form = OrdersEdit(item=item)
     if alert(content=editing_form, large=True):
       print("Item Data:", item)
-      anvil.server.call('add_order', order, item)
+      anvil.server.call('add_order_details', order, item)
+      self.calculate_outstanding_balance(order)
 
   def calculate_outstanding_balance(self, order):
     item = dict(order)
     deposit_amount = item['deposit_amount']
     if deposit_amount > 0:
       outstanding_balance = item['order_value'] - (item['deposit_amount'] + item['final_amount']) 
-      print(f"Calculated commission: {commission}")
+      print(f"Calculated outsatanding balance: {outstanding_balance}")
     else:
       outstanding_balance = 0
-
         # Update only the 'calculated_commission' for this specific sale
     order.update(outstanding_balance=outstanding_balance)
+    self.orders_grid.items = app_tables.orders.search()
     #self.refresh_sales_grid()  # Refresh the grid to show updated commission
     
     

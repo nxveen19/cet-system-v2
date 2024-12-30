@@ -52,8 +52,8 @@ def add_sales(sales_data):
 # server me update fn(it connects directly to db)
 def update_sale(sale, sale_data):
   # customer_data = {} items from CustomerEdit are appended into it
-  print(sale)
-  print(sale_data)
+  # print(sale)
+  # print(sale_data)
   if sale_data['type'] and sale_data['products_sold'] and sale_data['order_value'] and sale_data['discount'] and sale_data['commission'] or sale_data['notes']:
     sale.update(**sale_data)
 
@@ -63,10 +63,9 @@ def delete_sale(sale):
 
 #########################Order Details module
 @anvil.server.callable
-def add_order(order_data):
-  order_data['order_id'] = '123abc'
-  if order_data.get('status') and order_data.get('installation_status') and and order_data.get('depposit_amount') and order_data.get('final_amount'):
-    app_tables.orders.add_row(**order_data)
+def add_order_details(order, order_data):
+  if order_data['order_id'] and order_data['status'] and order_data['installation_status'] and order_data['deposit_amount'] and order_data['final_amount']:
+    order.update(**order_data)
   else:
     print("Missing Field")
   

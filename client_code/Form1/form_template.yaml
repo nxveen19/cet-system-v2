@@ -65,7 +65,8 @@ components:
       columns:
       - {data_key: operations, expand: true, id: OJLQEN, title: Operations}
       - {data_key: status, expand: true, id: CMTCEQ, title: Status Of Order}
-      - {data_key: intallation_status, expand: true, id: AYDYME, title: Installation Status}
+      - {data_key: installation_status, expand: true, id: AYDYME, title: Installation Status}
+      - {data_key: order_value, expand: true, id: GJVYEH, title: Order Value}
       - {data_key: deposit_amount, expand: true, id: BFMFIP, title: Deposit Amount}
       - {data_key: final_amount, expand: true, id: YZOXEK, title: Final Amount}
       - {data_key: outstanding_balance, expand: true, id: ZUHHGV, title: Outstanding Balance}
