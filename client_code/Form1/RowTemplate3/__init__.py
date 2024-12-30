@@ -12,3 +12,6 @@ class RowTemplate3(RowTemplate3Template):
     self.init_components(**properties)
 
     # Any code you write here will run before the form opens.
+
+  def edit_order_click(self, **event_args):
+    self.parent.raise_event('x-edit-sale', sale=self.item)

@@ -41,6 +41,9 @@ db_schema:
     - admin_ui: {order: 0, width: 200}
       name: order_id
       type: string
+    - admin_ui: {order: 1.75, width: 200}
+      name: order_value
+      type: number
     server: full
     title: orders
   sales:

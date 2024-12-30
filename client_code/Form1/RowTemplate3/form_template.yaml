@@ -1,3 +1,13 @@
-components: []
+components:
+- components:
+  - event_bindings: {click: edit_order_click}
+    layout_properties: {}
+    name: edit_order
+    properties: {icon: 'fa:pencil', text: ''}
+    type: Button
+  layout_properties: {column: OJLQEN}
+  name: flow_panel_1
+  properties: {}
+  type: FlowPanel
 container: {type: DataRowPanel}
 is_package: true

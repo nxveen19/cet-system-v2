@@ -6,6 +6,7 @@ import anvil.tables.query as q
 from anvil.tables import app_tables
 from ..CustomerEdit import CustomerEdit
 from ..SalesEdit import SalesEdit
+from ..OrdersEdit import OrdersEdit
 
 
 class Form1(Form1Template):
@@ -20,6 +21,8 @@ class Form1(Form1Template):
     self.sales_grid.add_event_handler('x-edit-sale', self.edit_sale)
     self.sales_grid.add_event_handler('x-delete-sale', self.delete_sale)
     self.refresh_sales_grid()
+
+    self.orders_grid.add_event_handler('x-edit-order', self.edit_order)
 
   def add_customer_info_click(self, **event_args):
     item = {}
@@ -106,6 +109,28 @@ class Form1(Form1Template):
     self.sales_grid.items = app_tables.sales.search()
 
   #############Order Processing status table#############
+
+  def edit_order(self, order, **event_args):
+    item = dict(order)
+    editing_form = OrdersEdit(item=item)
+    if alert(content=editing_form, large=True):
+      print("Item Data:", item)
+      anvil.server.call('add_order', order, item)
+
+  def calculate_outstanding_balance(self, order):
+    item = dict(order)
+    deposit_amount = item['deposit_amount']
+    if deposit_amount > 0:
+      outstanding_balance = item['order_value'] - (item['deposit_amount'] + item['final_amount']) 
+      print(f"Calculated commission: {commission}")
+    else:
+      outstanding_balance = 0
+
+        # Update only the 'calculated_commission' for this specific sale
+    order.update(outstanding_balance=outstanding_balance)
+    #self.refresh_sales_grid()  # Refresh the grid to show updated commission
+    
+    
 
 
     

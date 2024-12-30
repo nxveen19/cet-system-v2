@@ -33,6 +33,17 @@ def add_sales(sales_data):
   if sales_data.get('type') and sales_data.get('products_sold') and sales_data.get('order_value') and sales_data.get('discount') and sales_data.get('commission') or sales_data.get('notes'):
     print("Received customer data:", sales_data)
     new_sale = app_tables.sales.add_row(**sales_data)
+    order_data = {
+            'order_id': order_id,
+            'order_value': sales_data['order_value'],
+            'status': 'Order Placed',  # Default status for new orders
+            'deposit_amount': 0,  # Default deposit amount
+            'installation_status': 'Pending',  # Default installation status
+            'final_amount': 0,  # Default final amount received
+            'outstanding_balance': 0
+        }
+        # Add row to orders table
+    app_tables.orders.add_row(**order_data)
   else:
     print("missing")
   return new_sale
@@ -49,4 +60,13 @@ def update_sale(sale, sale_data):
 @anvil.server.callable
 def delete_sale(sale):
   sale.delete()
+
+#########################Order Details module
+@anvil.server.callable
+def add_order(order_data):
+  order_data['order_id'] = '123abc'
+  if order_data.get('status') and order_data.get('installation_status') and and order_data.get('depposit_amount') and order_data.get('final_amount'):
+    app_tables.orders.add_row(**order_data)
+  else:
+    print("Missing Field")
   
