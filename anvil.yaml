@@ -1,5 +1,25 @@
 allow_embedding: false
 db_schema:
+  commission:
+    client: full
+    columns:
+    - admin_ui: {order: 0, width: 200}
+      name: status
+      type: string
+    - admin_ui: {order: 1, width: 200}
+      name: due_commission
+      type: number
+    - admin_ui: {order: 2, width: 200}
+      name: commission_received
+      type: number
+    - admin_ui: {order: 3, width: 200}
+      name: commission_pending
+      type: number
+    - admin_ui: {order: -1, width: 200}
+      name: order_id
+      type: string
+    server: full
+    title: commission
   customers:
     client: full
     columns:

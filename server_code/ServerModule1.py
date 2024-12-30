@@ -38,7 +38,7 @@ def add_sales(sales_data):
     new_sale = app_tables.sales.add_row(**sales_data)
     order_data = {
             'order_id': order_id,
-            'custoemr_ref': sales_data['customer_ref'],
+            'customer_ref': sales_data['customer_ref'],
             'order_value': sales_data['order_value'],
             'status': 'Order Placed',  # Default status for new orders
             'deposit_amount': 0,  # Default deposit amount
@@ -73,4 +73,13 @@ def add_order_details(order, order_data):
     order.update(**order_data)
   else:
     print("Missing Field")
+
+@anvil.server.callable
+def add_commission_details(commission, commission_data):
+  commission_data['commission_pending'] = commission_data['due_commission'] - commission_data['commission_received']
+  if commission_data['order_id'] and commission_data['due_commission']:
+    commission.update(**commission_data)
+  else:
+    print("Missing field")
+  
   

@@ -72,8 +72,19 @@ class SalesForm(SalesFormTemplate):
 
     # Update only the 'calculated_commission' for this specific sale
     sale.update(calculated_commission=commission)
-
-    # Optionally update the grid to reflect the new commission
+    existing_row = app_tables.commission.get(order_id=sale['order_id'])
+    if existing_row:
+      existing_row.update(due_commission=commission)
+    else:
+      commission_data = {
+          'order_id': sale['order_id'],
+          'status': 'Not Paid',
+          'due_commission': commission,
+          'commission_received': 0,
+          'commission_pending': 0
+        }
+      app_tables.commission.add_row(**commission_data)
+    #Optionally update the grid to reflect the new commission
     self.refresh_sales_grid()  # Refresh the grid to show updated commission
 
   def refresh_sales_grid(self):
@@ -82,29 +93,6 @@ class SalesForm(SalesFormTemplate):
     #self.orders_grid.items = app_tables.orders.search()
 
   #############Order Processing status table#############
-
-  # def edit_order(self, order, **event_args):
-  #   item = dict(order)
-  #   editing_form = OrdersEdit(item=item)
-  #   if alert(content=editing_form, large=True):
-  #     print("Item Data:", item)
-  #     anvil.server.call("add_order_details", order, item)
-  #     self.calculate_outstanding_balance(order)
-
-  # def calculate_outstanding_balance(self, order):
-  #   item = dict(order)
-  #   deposit_amount = item["deposit_amount"]
-  #   if deposit_amount > 0:
-  #     outstanding_balance = item["order_value"] - (
-  #       item["deposit_amount"] + item["final_amount"]
-  #     )
-  #     print(f"Calculated outsatanding balance: {outstanding_balance}")
-  #   else:
-  #     outstanding_balance = 0
-  #     # Update only the 'calculated_commission' for this specific sale
-  #   order.update(outstanding_balance=outstanding_balance)
-  #   self.orders_grid.items = app_tables.orders.search()
-  #   # self.refresh_sales_grid()  # Refresh the grid to show updated commission
 
   def go_to_home_click(self, **event_args):
     open_form('Form1')

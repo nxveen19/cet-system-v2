@@ -59,6 +59,9 @@ class Form1(Form1Template):
 
 ########## Sales Details : date, type, products, order value, discount, commission, notes
 
+  def go_to_commission_click(self, **event_args):
+    open_form('CommissionForm')
+
 
 
 
