@@ -46,6 +46,7 @@ class SalesForm(SalesFormTemplate):
       anvil.server.call("update_sale", sale, item)
 
       # refresh the Data Grid
+      
       self.calculate_and_update_commission(sale)
       self.sales_grid.items = app_tables.sales.search()
 
@@ -99,3 +100,6 @@ class SalesForm(SalesFormTemplate):
 
   def go_to_orders_click(self, **event_args):
     open_form('OrdersForm')
+
+  def go_to_commission_click(self, **event_args):
+    open_form('CommissionForm')

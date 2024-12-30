@@ -49,7 +49,7 @@ def add_sales(sales_data):
         # Add row to orders table
     app_tables.orders.add_row(**order_data)
   else:
-    print("missing")
+    print("missing order data")
   return new_sale
   
 @anvil.server.callable
@@ -59,6 +59,10 @@ def update_sale(sale, sale_data):
   # customer_data = {} items from CustomerEdit are appended into it
   # print(sale)
   # print(sale_data)
+  sale_data['date'] = datetime.now().date()
+  existing_row_in_order = app_tables.orders.get(order_id=sale_data['order_id'])
+  if existing_row_in_order:
+    existing_row_in_order.update(order_value=sale_data['order_value'])
   if sale_data['type'] and sale_data['customer_ref'] and sale_data['products_sold'] and sale_data['order_value'] and sale_data['discount'] and sale_data['commission'] or sale_data['notes']:
     sale.update(**sale_data)
 
@@ -72,7 +76,7 @@ def add_order_details(order, order_data):
   if order_data['order_id'] and order_data['status'] and order_data['installation_status'] and order_data['deposit_amount'] and order_data['final_amount']:
     order.update(**order_data)
   else:
-    print("Missing Field")
+    print("Missing Field in adding order")
 
 @anvil.server.callable
 def add_commission_details(commission, commission_data):
@@ -80,6 +84,6 @@ def add_commission_details(commission, commission_data):
   if commission_data['order_id'] and commission_data['due_commission']:
     commission.update(**commission_data)
   else:
-    print("Missing field")
+    print("Missing field in adding commission")
   
   

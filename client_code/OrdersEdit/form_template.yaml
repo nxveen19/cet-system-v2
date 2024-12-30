@@ -17,7 +17,9 @@ components:
   name: label_5
   properties: {text: 'Installation Status :'}
   type: Label
-- layout_properties: {grid_position: 'ILZFTN,KSXYUK'}
+- data_bindings:
+  - {code: 'self.item[''installation_status'']', property: items, writeback: false}
+  layout_properties: {grid_position: 'ILZFTN,KSXYUK'}
   name: installation_status
   properties: {}
   type: DropDown

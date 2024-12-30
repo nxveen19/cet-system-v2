@@ -13,12 +13,12 @@ class CommissionForm(CommissionFormTemplate):
     self.commission_grid.add_event_handler('x-edit-commission', self.edit_commission)
     self.commission_grid.items = app_tables.commission.search()
     # Any code you write here will run before the form opens.
-  def edit_commission(self, commission, **event_args):
-    item = dict(commission)
+  def edit_commission(self, commission_row, **event_args):
+    item = dict(commission_row)
     editing_form = CommissionEdit(item=item)
     if alert(content=editing_form, large=True):
       print("Item Data:", item)
-      anvil.server.call("add_commission_details", commission, item)
+      anvil.server.call("add_commission_details", commission_row, item)
       self.commission_grid.items = app_tables.commission.search()
       # self.calculate_outstanding_balance(order)
 
