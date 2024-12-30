@@ -81,6 +81,11 @@ components:
     name: go_to_sales
     properties: {role: outlined-button, text: Go To Sales}
     type: Button
+  - event_bindings: {click: go_to_orders_click}
+    layout_properties: {}
+    name: go_to_orders
+    properties: {role: outlined-button, text: Go To Orders}
+    type: Button
   layout_properties: {slot: nav-right}
   name: navbar_links
   properties: {}
