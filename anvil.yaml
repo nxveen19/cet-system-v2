@@ -35,8 +35,8 @@ db_schema:
     - admin_ui: {order: 4, width: 200}
       name: outstanding_balance
       type: number
-    - admin_ui: {order: 1.5, width: 200}
-      name: intallation_status
+    - admin_ui: {order: 1.375, width: 200}
+      name: installation_status
       type: string
     - admin_ui: {order: 0, width: 200}
       name: order_id
