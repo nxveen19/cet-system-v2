@@ -7,13 +7,23 @@ components:
     text: |
       Commission Details Form
   type: Label
-- layout_properties: {grid_position: 'KGKPEJ,VWYMGC'}
+- layout_properties: {grid_position: 'KDVOLR,QKJNKY'}
+  name: label_6
+  properties: {text: 'Customer Reference :'}
+  type: Label
+- data_bindings:
+  - {code: 'self.item[''customer_ref_number'']', property: text, writeback: true}
+  layout_properties: {grid_position: 'KDVOLR,GWRQUS'}
+  name: customer_ref_number
+  properties: {}
+  type: TextBox
+- layout_properties: {grid_position: 'YUWIYA,ZEXHKW'}
   name: label_2
   properties: {text: 'Commission Status :'}
   type: Label
 - data_bindings:
   - {code: 'self.item[''status'']', property: selected_value, writeback: true}
-  layout_properties: {grid_position: 'KGKPEJ,FVSAPL'}
+  layout_properties: {grid_position: 'YUWIYA,VAAOYI'}
   name: status
   properties:
     items: []

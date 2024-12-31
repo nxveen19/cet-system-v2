@@ -29,28 +29,44 @@ def delete_customer(customer):
 ##############################SALES DETAILS MODULE
 @anvil.server.callable
 def add_sales(sales_data):
-  today = datetime.now().date()
-  sales_data['date'] = today
-  order_id = str(uuid.uuid4())  # Generates a unique string like 'c9b1b3d8-8f93-45ea-a8f7-8e1f6b1d333f'
-  sales_data['order_id'] = order_id
-  if sales_data.get('type') and sales_data.get('customer_ref') and sales_data.get('products_sold') and sales_data.get('order_value') and sales_data.get('discount') and sales_data.get('commission') or sales_data.get('notes'):
+    today = datetime.now().date()
+    sales_data['date'] = today
+    order_id = str(uuid.uuid4())  # Generate a unique order ID
+    sales_data['order_id'] = order_id
+
+    # Validate required fields
+    required_fields = ['type', 'customer_ref_number', 'customer_ref', 'products_sold', 'order_value', 'discount', 'commission']
+    if not all(sales_data.get(field) for field in required_fields):
+        raise ValueError("Missing required sales data.")
+
+    # Validate customer reference number length
+    customer_ref_number = sales_data['customer_ref_number']
+    customer_ref_number_strip = customer_ref_number.strip('-')
+    if len(customer_ref_number_strip) <= 12:
+      new_sale = app_tables.sales.add_row(**sales_data)
+    else:
+      print("Customer Reference Number must be 12 characters or fewer.")
+
+    # Add sales row
     print("Received customer data:", sales_data)
-    new_sale = app_tables.sales.add_row(**sales_data)
+
+
+    # Prepare and add order row
     order_data = {
-            'order_id': order_id,
-            'customer_ref': sales_data['customer_ref'],
-            'order_value': sales_data['order_value'],
-            'status': 'Order Placed',  # Default status for new orders
-            'deposit_amount': 0,  # Default deposit amount
-            'installation_status': 'Pending',  # Default installation status
-            'final_amount': 0,  # Default final amount received
-            'outstanding_balance': 0
-        }
-        # Add row to orders table
+        'order_id': order_id,
+        'customer_ref': sales_data['customer_ref'],
+        'customer_ref_number': customer_ref_number,
+        'order_value': sales_data['order_value'],
+        'status': 'Order Placed',  # Default status for new orders
+        'deposit_amount': 0,  # Default deposit amount
+        'installation_status': 'Pending',  # Default installation status
+        'final_amount': 0,  # Default final amount received
+        'outstanding_balance': 0
+    }
     app_tables.orders.add_row(**order_data)
-  else:
-    print("missing order data")
-  return new_sale
+
+    return new_sale
+
   
 @anvil.server.callable
 # db customer jo ki argument hai, takes customer list as customer_data.it is rep as json file
@@ -63,8 +79,10 @@ def update_sale(sale, sale_data):
   existing_row_in_order = app_tables.orders.get(order_id=sale_data['order_id'])
   if existing_row_in_order:
     existing_row_in_order.update(order_value=sale_data['order_value'])
-  if sale_data['type'] and sale_data['customer_ref'] and sale_data['products_sold'] and sale_data['order_value'] and sale_data['discount'] and sale_data['commission'] or sale_data['notes']:
-    sale.update(**sale_data)
+  if sale_data['type'] and sale_data['customer_ref_number'] and sale_data['customer_ref'] and sale_data['products_sold'] and sale_data['order_value'] and sale_data['discount'] and sale_data['commission']:
+    customer_ref_number = sale_data['customer_ref_number'].strip('-')
+    if len(customer_ref_number) <= 12:
+      sale.update(**sale_data)
 
 @anvil.server.callable
 def delete_sale(sale):

@@ -34,6 +34,9 @@ class SalesForm(SalesFormTemplate):
       self.calculate_and_update_commission(new_sale)
       # refresh the Data Grid
       self.sales_grid.items = app_tables.sales.search()
+    customer_ref_number = item['customer_ref_number'].strip('-')
+    if len(customer_ref_number) > 12:
+      alert("Customer Reference Number must be 12 characters or fewer.")
 
   def edit_sale(self, sale, **event_args):
     # movie is the row from the Data Table
@@ -44,11 +47,18 @@ class SalesForm(SalesFormTemplate):
     if alert(content=editing_form, large=True):
       # pass in the Data Table row and the updated info
       anvil.server.call("update_sale", sale, item)
-
-      # refresh the Data Grid
-      
+      existing_row = app_tables.orders.get(order_id=sale['order_id'])
+      existing_row_commission = app_tables.commission.get(order_id=sale['order_id'])
+      if existing_row or existing_row_commission:
+        existing_row.update(customer_ref_number=sale['customer_ref_number'])
+        existing_row_commission.update(customer_ref_number=sale['customer_ref_number'])
       self.calculate_and_update_commission(sale)
       self.sales_grid.items = app_tables.sales.search()
+      # refresh the Data Grid
+    customer_ref_number = item['customer_ref_number'].strip('-')
+    if len(customer_ref_number) > 12:
+      alert("Customer Reference Number must be 12 characters or fewer.")
+
 
   def delete_sale(self, sale, **event_args):
     if confirm(f"Do you really want to delete the customer row {sale['type']}?"):
@@ -64,9 +74,7 @@ class SalesForm(SalesFormTemplate):
     commission_percentage = item["commission"]
 
     if commission_percentage > 0:
-      commission = round(
-        (item["order_value"]) * (commission_percentage / 100)
-      )
+      commission = item["order_value"]) * (commission_percentage / 100)
       print(f"Calculated commission: {commission}")
     else:
       commission = 0
@@ -75,7 +83,7 @@ class SalesForm(SalesFormTemplate):
     sale.update(calculated_commission=commission)
     existing_row = app_tables.commission.get(order_id=sale['order_id'])
     if existing_row:
-      existing_row.update(due_commission=commission)
+      existing_row.update(due_commission=commission, customer_ref_number=item['customer_ref_number'])
     else:
       commission_data = {
           'order_id': sale['order_id'],

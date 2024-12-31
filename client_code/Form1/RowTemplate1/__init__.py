@@ -33,6 +33,7 @@ class RowTemplate1(RowTemplate1Template):
         'order_id': order_id,  # Unique order ID
         'customer_ref_id': customer_id,
         'customer_ref': customer_name,
+        'customer_ref_number': '',
         'date': datetime.now().date(),
         'type': 'None',
         'products_sold': 'None',
@@ -45,6 +46,7 @@ class RowTemplate1(RowTemplate1Template):
     order_data = {
             'order_id': sales_data['order_id'],
             'customer_ref': customer_name,
+            'customer_ref_number': '',
             'customer_ref_id': customer_id,
             'order_value': sales_data['order_value'],
             'status': '',  # Default status for new orders

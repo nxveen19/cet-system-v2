@@ -13,7 +13,8 @@ components:
     properties:
       columns:
       - {data_key: operations, expand: true, id: OJLQEN, title: Operations}
-      - {data_key: customer_ref, expand: true, id: RHXXJG, title: Customer Reference}
+      - {data_key: customer_ref, expand: true, id: RHXXJG, title: Customer Name}
+      - {data_key: customer_ref_number, expand: true, id: QJIQWA, title: Customer Reference}
       - {data_key: status, expand: true, id: CMTCEQ, title: Status Of Order}
       - {data_key: installation_status, expand: true, id: AYDYME, title: Installation Status}
       - {data_key: order_value, expand: true, id: GJVYEH, title: Order Value}

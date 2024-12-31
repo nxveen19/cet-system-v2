@@ -13,12 +13,13 @@ components:
     properties:
       columns:
       - {data_key: operations, expand: true, id: JKSDUP, title: Operations}
-      - {data_key: customer_ref, expand: true, id: CZFSIO, title: Customer Reference}
+      - {data_key: customer_ref, expand: true, id: CZFSIO, title: Customer Name}
+      - {data_key: customer_ref_number, expand: true, id: IBOYPB, title: Customer Reference}
       - {data_key: date, expand: true, id: PEFSKX, title: Date of Sale}
       - {data_key: type, expand: true, id: NZZRSM, title: 'Type of Sale '}
       - {data_key: products_sold, expand: true, id: WOIFLQ, title: Products Sold}
       - {data_key: order_value, expand: true, id: RGNRUO, title: Order Value}
-      - {data_key: discount, expand: true, id: FBGFJE, title: Discount}
+      - {data_key: discount, expand: true, id: FBGFJE, title: Discount(%)}
       - {data_key: commission, expand: true, id: CJKXZB, title: Commission(%)}
       - {data_key: calculated_commission, id: ZTPMSD, title: Calculate Commission}
       - {data_key: notes, expand: true, id: DWZCIZ, title: Notes}

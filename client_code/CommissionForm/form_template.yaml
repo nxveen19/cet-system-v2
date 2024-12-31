@@ -27,6 +27,7 @@ components:
   properties:
     columns:
     - {data_key: operations, expand: true, id: WCNHSN, title: Operations}
+    - {data_key: customer_ref_number, expand: true, id: PGNBHV, title: Customer Reference}
     - {data_key: status, id: MEADCP, title: Commission Status}
     - {data_key: due_commission, id: OFGKTW, title: Due Commission}
     - {data_key: commission_received, id: ZCOFYO, title: Commission Received}
