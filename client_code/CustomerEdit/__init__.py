@@ -13,7 +13,6 @@ class CustomerEdit(CustomerEditTemplate):
   self.item = item
   self.init_components(**properties)
   self.init_components(**properties)
-  self.post_code.type = "number"
   self.phone.type = "number"
 
     # Any code you write here will run before the form opens.

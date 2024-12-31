@@ -26,9 +26,6 @@ db_schema:
     - admin_ui: {order: 0, width: 200}
       name: name
       type: string
-    - admin_ui: {order: 1, width: 200}
-      name: post_code
-      type: number
     - admin_ui: {order: 2, width: 200}
       name: phone
       type: number
@@ -40,6 +37,9 @@ db_schema:
       type: string
     - admin_ui: {order: 5, width: 200}
       name: customer_ref_id
+      type: string
+    - admin_ui: {order: 2.5, width: 200}
+      name: post_code
       type: string
     server: full
     title: customers
