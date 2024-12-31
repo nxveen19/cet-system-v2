@@ -16,6 +16,7 @@ class OrdersEdit(OrdersEditTemplate):
     self.installation_status.items = ['Pending', 'Processing', 'Installed']
     self.status.change = self.update_status
     self.installation_status.change = self.update_status
+    self.order_value.type = 'number'
 
   def update_status(self, **event_args):
     new_status = self.status.selected_value

@@ -70,9 +70,6 @@ db_schema:
     - admin_ui: {order: 0, width: 200}
       name: order_id
       type: string
-    - admin_ui: {order: 1.75, width: 200}
-      name: order_value
-      type: number
     - admin_ui: {order: 0.5, width: 200}
       name: customer_ref
       type: string
@@ -82,6 +79,9 @@ db_schema:
     - admin_ui: {order: 5, width: 200}
       name: customer_ref_number
       type: string
+    - admin_ui: {order: 6, width: 200}
+      name: order_value
+      type: number
     server: full
     title: orders
   sales:
@@ -96,9 +96,6 @@ db_schema:
     - admin_ui: {order: 2, width: 200}
       name: products_sold
       type: string
-    - admin_ui: {order: 3, width: 200}
-      name: order_value
-      type: number
     - admin_ui: {order: 4, width: 200}
       name: discount
       type: number
@@ -123,6 +120,9 @@ db_schema:
     - admin_ui: {order: -0.125, width: 200}
       name: customer_ref_number
       type: string
+    - admin_ui: {order: 3, width: 200}
+      name: order_value
+      type: number
     server: full
     title: sales
 dependencies: []
