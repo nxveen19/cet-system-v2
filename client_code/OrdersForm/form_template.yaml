@@ -36,6 +36,11 @@ components:
     name: go_to_sales
     properties: {role: outlined-button, text: Go To Sales}
     type: Button
+  - event_bindings: {click: go_to_commission_click}
+    layout_properties: {}
+    name: go_to_commission
+    properties: {role: outlined-button, text: Go To Commission}
+    type: Button
   layout_properties: {slot: nav-right}
   name: navbar_links
   properties: {}

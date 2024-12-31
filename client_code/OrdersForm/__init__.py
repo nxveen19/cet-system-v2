@@ -51,3 +51,6 @@ class OrdersForm(OrdersFormTemplate):
 
   def go_to_sales_click(self, **event_args):
     open_form('SalesForm')
+
+  def go_to_commission_click(self, **event_args):
+    open_form('CommissionForm')

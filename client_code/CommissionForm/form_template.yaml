@@ -13,6 +13,11 @@ components:
   name: go_to_sales
   properties: {role: outlined-button, text: Go To Sales}
   type: Button
+- event_bindings: {click: go_to_orders_click}
+  layout_properties: {grid_position: 'GUIHHK,BSMFHG'}
+  name: go_to_orders
+  properties: {role: outlined-button, text: Go To Orders}
+  type: Button
 - components:
   - name: commission_grid
     properties: {item_template: CommissionForm.RowTemplate4}

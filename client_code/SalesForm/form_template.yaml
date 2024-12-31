@@ -19,7 +19,7 @@ components:
       - {data_key: products_sold, expand: true, id: WOIFLQ, title: Products Sold}
       - {data_key: order_value, expand: true, id: RGNRUO, title: Order Value}
       - {data_key: discount, expand: true, id: FBGFJE, title: Discount}
-      - {data_key: commission, expand: true, id: CJKXZB, title: Commission}
+      - {data_key: commission, expand: true, id: CJKXZB, title: Commission(%)}
       - {data_key: calculated_commission, id: ZTPMSD, title: Calculate Commission}
       - {data_key: notes, expand: true, id: DWZCIZ, title: Notes}
     type: DataGrid
