@@ -13,13 +13,10 @@ class OrdersForm(OrdersFormTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
-    self.refresh_sales_grid()
+    self.orders_grid.items = app_tables.orders.search()
+    self.refresh_orders_grid()
     self.orders_grid.add_event_handler("x-edit-order", self.edit_order)
   ########## Sales Details : date, type, products, order value, discount, commission, notes
-  def refresh_sales_grid(self):
-    # Refresh only the grid's items based on the updated sales data
-    #self.sales_grid.items = app_tables.sales.search()
-    self.orders_grid.items = app_tables.orders.search()
 
   #############Order Processing status table#############
 
@@ -30,6 +27,7 @@ class OrdersForm(OrdersFormTemplate):
       print("Item Data:", item)
       anvil.server.call("add_order_details", order, item)
       self.calculate_outstanding_balance(order)
+      self.refresh_orders_grid()
 
   def calculate_outstanding_balance(self, order):
     item = dict(order)
@@ -45,6 +43,18 @@ class OrdersForm(OrdersFormTemplate):
     order.update(outstanding_balance=outstanding_balance)
     self.orders_grid.items = app_tables.orders.search()
     # self.refresh_sales_grid()  # Refresh the grid to show updated commission
+
+  def refresh_orders_grid(self):
+    self.orders_grid.items = [
+        {**dict(item), 
+         'order_value': f"£{dict(item)['order_value']}",
+          'deposit_amount': f"£{dict(item)['deposit_amount']}",
+         'final_amount': f"£{dict(item)['final_amount']}",
+         'outstanding_balance': f"£{dict(item)['outstanding_balance']}"
+        }
+        for item in app_tables.orders.search()
+    ]
+    
 
   def back_to_customer_click(self, **event_args):
     open_form('Form1')  # Navigate to the SalesForm

@@ -13,9 +13,11 @@ class SalesForm(SalesFormTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
+    
     self.sales_grid.add_event_handler("x-edit-sale", self.edit_sale)
     self.sales_grid.add_event_handler("x-delete-sale", self.delete_sale)
-    self.refresh_sales_grid()
+    
+    self.sales_grid.items = app_tables.sales.search()
 
     #self.orders_grid.add_event_handler("x-edit-order", self.edit_order)
 
@@ -26,6 +28,8 @@ class SalesForm(SalesFormTemplate):
     editing_form = SalesEdit(item=item)
     if alert(content=editing_form, large=True):  # matlab jab OK button jabaunga
       # add the movie to the Data Table with the filled in information
+      if isinstance(item.get('order_value'), str):
+        item['order_value'] = float(item['order_value'].replace('£', '').strip())
       print("Item data:", item)
       # print("hello world")
       new_sale = anvil.server.call(
@@ -33,7 +37,7 @@ class SalesForm(SalesFormTemplate):
       )  # item is dict{} and new_sale is row in db
       self.calculate_and_update_commission(new_sale)
       # refresh the Data Grid
-      self.sales_grid.items = app_tables.sales.search()
+      self.refresh_sales_grid()
     customer_ref_number = item['customer_ref_number'].strip('-')
     if len(customer_ref_number) > 12:
       alert("Customer Reference Number must be 12 characters or fewer.")
@@ -46,24 +50,28 @@ class SalesForm(SalesFormTemplate):
     # if the user clicks OK on the alert
     if alert(content=editing_form, large=True):
       # pass in the Data Table row and the updated info
+      if isinstance(item.get('order_value'), str):
+            item['order_value'] = float(item['order_value'].replace('£', '').strip())
       anvil.server.call("update_sale", sale, item)
       existing_row = app_tables.orders.get(order_id=sale['order_id'])
-      existing_row_commission = app_tables.commission.get(order_id=sale['order_id'])
-      if existing_row or existing_row_commission:
+      
+      if existing_row:
         existing_row.update(customer_ref_number=sale['customer_ref_number'])
-        existing_row_commission.update(customer_ref_number=sale['customer_ref_number'])
       self.calculate_and_update_commission(sale)
-      self.sales_grid.items = app_tables.sales.search()
+      existing_row_commission = app_tables.commission.get(order_id=sale['order_id'])
+      if existing_row_commission:
+        existing_row_commission.update(customer_ref_number=sale['customer_ref_number'])
+      self.refresh_sales_grid()
       # refresh the Data Grid
     customer_ref_number = item['customer_ref_number'].strip('-')
     if len(customer_ref_number) > 12:
       alert("Customer Reference Number must be 12 characters or fewer.")
+      
 
 
   def delete_sale(self, sale, **event_args):
     if confirm(f"Do you really want to delete the customer row {sale['type']}?"):
       anvil.server.call("delete_sale", sale)
-      self.refresh_sales_grid()
       print(sale)
       # refresh the Data Grid
       self.sales_grid.items = app_tables.sales.search()
@@ -72,9 +80,11 @@ class SalesForm(SalesFormTemplate):
     # Calculate commission for the given sale row
     item = dict(sale)
     commission_percentage = item["commission"]
+    if isinstance(item.get('order_value'), str):
+      item['order_value'] = float(item['order_value'].replace('£', '').strip())
 
     if commission_percentage > 0:
-      commission = item["order_value"]) * (commission_percentage / 100)
+      commission = item["order_value"] * (commission_percentage / 100)
       print(f"Calculated commission: {commission}")
     else:
       commission = 0
@@ -93,13 +103,31 @@ class SalesForm(SalesFormTemplate):
           'commission_pending': 0
         }
       app_tables.commission.add_row(**commission_data)
+      self.refresh_sales_grid()
     #Optionally update the grid to reflect the new commission
-    self.refresh_sales_grid()  # Refresh the grid to show updated commission
+      # Refresh the grid to show updated commission
 
   def refresh_sales_grid(self):
-    # Refresh only the grid's items based on the updated sales data
     self.sales_grid.items = app_tables.sales.search()
-    #self.orders_grid.items = app_tables.orders.search()
+    # sales_data = app_tables.sales.search()
+
+    # # Prepare a list to hold the formatted data
+    # formatted_sales_data = []
+
+    # for item in sales_data:
+    #     # Check if necessary fields exist and format them if required
+    #     formatted_item = dict(item)
+        
+    #     # Handle 'None' values early before adding to the formatted data
+    #     formatted_item['order_value'] = f"£{formatted_item['order_value'] if formatted_item['order_value'] is not None else 0.00}"
+    #     #formatted_item['commission'] = f"£{formatted_item['commission'] if formatted_item['commission'] is not None else 0.00:.2f}"
+    #     formatted_item['calculated_commission'] = f"£{formatted_item['calculated_commission'] if formatted_item['calculated_commission'] is not None else 0.00:.2f}"
+
+    #     # Add the formatted item to the list
+    #     formatted_sales_data.append(formatted_item)
+
+    # # Now update the grid with the fully prepared data
+    # self.sales_grid.items = formatted_sales_data
 
   #############Order Processing status table#############
 

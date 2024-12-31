@@ -33,7 +33,6 @@ def add_sales(sales_data):
     sales_data['date'] = today
     order_id = str(uuid.uuid4())  # Generate a unique order ID
     sales_data['order_id'] = order_id
-
     # Validate required fields
     required_fields = ['type', 'customer_ref_number', 'customer_ref', 'products_sold', 'order_value', 'discount', 'commission']
     if not all(sales_data.get(field) for field in required_fields):
