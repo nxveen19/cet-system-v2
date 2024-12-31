@@ -14,8 +14,8 @@ class OrdersForm(OrdersFormTemplate):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
     self.orders_grid.items = app_tables.orders.search()
-    self.refresh_orders_grid()
     self.orders_grid.add_event_handler("x-edit-order", self.edit_order)
+    self.refresh_orders_grid()
   ########## Sales Details : date, type, products, order value, discount, commission, notes
 
   #############Order Processing status table#############
@@ -45,15 +45,7 @@ class OrdersForm(OrdersFormTemplate):
     # self.refresh_sales_grid()  # Refresh the grid to show updated commission
 
   def refresh_orders_grid(self):
-    self.orders_grid.items = [
-        {**dict(item), 
-         'order_value': f"£{dict(item)['order_value']}",
-          'deposit_amount': f"£{dict(item)['deposit_amount']}",
-         'final_amount': f"£{dict(item)['final_amount']}",
-         'outstanding_balance': f"£{dict(item)['outstanding_balance']}"
-        }
-        for item in app_tables.orders.search()
-    ]
+    self.orders_grid.items = app_tables.orders.search()
     
 
   def back_to_customer_click(self, **event_args):

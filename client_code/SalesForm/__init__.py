@@ -13,12 +13,12 @@ class SalesForm(SalesFormTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
-    
+
     self.sales_grid.add_event_handler("x-edit-sale", self.edit_sale)
     self.sales_grid.add_event_handler("x-delete-sale", self.delete_sale)
     
     self.sales_grid.items = app_tables.sales.search()
-
+    #self.refresh_sales_grid()
     #self.orders_grid.add_event_handler("x-edit-order", self.edit_order)
 
   ########## Sales Details : date, type, products, order value, discount, commission, notes
@@ -108,26 +108,24 @@ class SalesForm(SalesFormTemplate):
       # Refresh the grid to show updated commission
 
   def refresh_sales_grid(self):
-    self.sales_grid.items = app_tables.sales.search()
-    # sales_data = app_tables.sales.search()
+    sales_data = app_tables.sales.search()
+    # Prepare a list to hold the formatted data
+    formatted_sales_data = []
 
-    # # Prepare a list to hold the formatted data
-    # formatted_sales_data = []
-
-    # for item in sales_data:
-    #     # Check if necessary fields exist and format them if required
-    #     formatted_item = dict(item)
+    for item in sales_data:
+        # Check if necessary fields exist and format them if required
+        formatted_item = dict(item)
         
-    #     # Handle 'None' values early before adding to the formatted data
-    #     formatted_item['order_value'] = f"£{formatted_item['order_value'] if formatted_item['order_value'] is not None else 0.00}"
-    #     #formatted_item['commission'] = f"£{formatted_item['commission'] if formatted_item['commission'] is not None else 0.00:.2f}"
-    #     formatted_item['calculated_commission'] = f"£{formatted_item['calculated_commission'] if formatted_item['calculated_commission'] is not None else 0.00:.2f}"
+        # Handle 'None' values early before adding to the formatted data
+        formatted_item['order_value'] = f"£{formatted_item['order_value'] if formatted_item['order_value'] is not None else 0.00}"
+        #formatted_item['commission'] = f"£{formatted_item['commission'] if formatted_item['commission'] is not None else 0.00:.2f}"
+        formatted_item['calculated_commission'] = f"£{formatted_item['calculated_commission'] if formatted_item['calculated_commission'] is not None else 0.00:.2f}"
 
-    #     # Add the formatted item to the list
-    #     formatted_sales_data.append(formatted_item)
+        # Add the formatted item to the list
+        formatted_sales_data.append(formatted_item)
 
-    # # Now update the grid with the fully prepared data
-    # self.sales_grid.items = formatted_sales_data
+    # Now update the grid with the fully prepared data
+    self.sales_grid.items = formatted_sales_data
 
   #############Order Processing status table#############
 

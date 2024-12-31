@@ -12,7 +12,6 @@ class RowTemplate1(RowTemplate1Template):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
-
     # Any code you write here will run before the form opens.
 # customer ko db se nahi data grid me elements se access kr rhe hai by = customer
   def edit_row_click(self, **event_args):
@@ -23,7 +22,7 @@ class RowTemplate1(RowTemplate1Template):
 
   def add_customer_sale_click(self, **event_args):
     # Extract the customer details from the current row
-    customer = self.item
+    customer= self.item
     customer_id = customer['customer_ref_id']
     customer_name = customer['name']
     order_id = str(uuid.uuid4())
