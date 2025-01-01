@@ -13,6 +13,7 @@ class SalesEdit(SalesEditTemplate):
     self.init_components(**properties)
     self.commission.type = 'number'
     self.discount.type = 'number'
+    self.order_value.type = 'number'
     # Any code you write here will run before the form opens.
 
 

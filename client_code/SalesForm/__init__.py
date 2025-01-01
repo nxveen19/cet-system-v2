@@ -31,7 +31,6 @@ class SalesForm(SalesFormTemplate):
       if isinstance(item.get('order_value'), str):
         item['order_value'] = float(item['order_value'].replace('£', '').strip())
       print("Item data:", item)
-      # print("hello world")
       new_sale = anvil.server.call(
         "add_sales", item
       )  # item is dict{} and new_sale is row in db
@@ -79,6 +78,7 @@ class SalesForm(SalesFormTemplate):
   def calculate_and_update_commission(self, sale):
     # Calculate commission for the given sale row
     item = dict(sale)
+    customer_ref_number = item['customer_ref_number']
     commission_percentage = item["commission"]
     if isinstance(item.get('order_value'), str):
       item['order_value'] = float(item['order_value'].replace('£', '').strip())
@@ -93,11 +93,13 @@ class SalesForm(SalesFormTemplate):
     sale.update(calculated_commission=commission)
     existing_row = app_tables.commission.get(order_id=sale['order_id'])
     if existing_row:
-      existing_row.update(due_commission=commission, customer_ref_number=item['customer_ref_number'])
+      print(f"Item in cal_commision is : {item}")
+      existing_row.update(due_commission=commission, customer_ref_number=customer_ref_number)
     else:
       commission_data = {
           'order_id': sale['order_id'],
           'status': 'Not Paid',
+          'customer_ref_number': customer_ref_number,
           'due_commission': commission,
           'commission_received': 0,
           'commission_pending': 0
