@@ -81,6 +81,7 @@ class SalesForm(SalesFormTemplate):
   def calculate_and_update_commission(self, sale):
     # Calculate commission for the given sale row
     item = dict(sale)
+    current_user = anvil.users.get_user()
     customer_ref_number = item['customer_ref_number']
     commission_percentage = item["commission"]
     if isinstance(item.get('order_value'), str):
@@ -100,6 +101,7 @@ class SalesForm(SalesFormTemplate):
       existing_row.update(due_commission=commission, customer_ref_number=customer_ref_number)
     else:
       commission_data = {
+          'user': current_user,
           'order_id': sale['order_id'],
           'status': 'Not Paid',
           'customer_ref_number': customer_ref_number,

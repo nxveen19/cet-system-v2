@@ -17,6 +17,7 @@ class Form1(Form1Template):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
     anvil.users.login_with_form()
+    anvil.server.call('get_secret_data')
     
     self.customer_grid.items = app_tables.customers.search()
     #self.sales_grid.items = app_tables.sales.search()

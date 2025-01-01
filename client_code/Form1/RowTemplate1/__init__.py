@@ -29,9 +29,11 @@ class RowTemplate1(RowTemplate1Template):
     customer_id = customer['customer_ref_id']
     customer_name = customer['name']
     order_id = str(uuid.uuid4())
+    current_user = anvil.users.get_user()
 
     # Create a new sale row associated with this customer
     sales_data = {
+        'user': current_user,
         'order_id': order_id,  # Unique order ID
         'customer_ref_id': customer_id,
         'customer_ref': customer_name,
@@ -46,6 +48,7 @@ class RowTemplate1(RowTemplate1Template):
         'notes': 'None'
     }
     order_data = {
+            'user': current_user,
             'order_id': sales_data['order_id'],
             'customer_ref': customer_name,
             'customer_ref_number': '',
