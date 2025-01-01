@@ -171,6 +171,7 @@ db_schema:
     server: full
     title: Users
 dependencies: []
+metadata: {title: Commission Earner Tracker (beta)}
 name: CET System V2
 package_name: CET_System_V2
 renamed: true
