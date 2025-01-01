@@ -24,11 +24,6 @@ components:
     name: add_customer_info
     properties: {text: Add Customer}
     type: Button
-  - event_bindings: {click: logout_click}
-    layout_properties: {grid_position: 'UYPBDI,IAIDGT'}
-    name: logout
-    properties: {role: outlined-button, text: Logout}
-    type: Button
   layout_properties: {slot: default}
   name: content_panel
   properties: {col_widths: '{}'}
@@ -48,6 +43,10 @@ components:
     layout_properties: {}
     name: go_to_commission
     properties: {role: outlined-button, text: Go To Commission}
+    type: Button
+  - event_bindings: {click: logout_click}
+    name: logout
+    properties: {role: outlined-button, text: Logout}
     type: Button
   layout_properties: {slot: nav-right}
   name: navbar_links

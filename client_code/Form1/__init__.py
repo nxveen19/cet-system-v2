@@ -17,9 +17,9 @@ class Form1(Form1Template):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
     anvil.users.login_with_form()
-    anvil.server.call('get_secret_data')
+    #anvil.server.call('get_secret_data')
     
-    self.customer_grid.items = app_tables.customers.search()
+    self.customer_grid.items = anvil.server.call('get_customers_for_user')
     #self.sales_grid.items = app_tables.sales.search()
     self.customer_grid.add_event_handler('x-go-to-sales', self.go_to_sales_click)
     
@@ -40,7 +40,7 @@ class Form1(Form1Template):
       # print("hello world")
       anvil.server.call('add_customer', item) # item is dict{}
     #refresh the Data Grid
-      self.customer_grid.items = app_tables.customers.search()
+      self.customer_grid.items = anvil.server.call('get_customers_for_user')
   def edit_customer(self, customer, **event_args):
   #movie is the row from the Data Table
     item = dict(customer)
@@ -51,12 +51,12 @@ class Form1(Form1Template):
     #pass in the Data Table row and the updated info
       anvil.server.call('update_customer', customer, item)
     #refresh the Data Grid
-      self.customer_grid.items = app_tables.customers.search()
+      self.customer_grid.items = anvil.server.call('get_customers_for_user')
   def delete_customer(self, customer, **event_args):
     if confirm(f"Do you really want to delete the customer row {customer['name']}?"):
       anvil.server.call('delete_customer', customer)
     #refresh the Data Grid
-      self.customer_grid.items = app_tables.customers.search()
+      self.customer_grid.items = anvil.server.call('get_customers_for_user')
   def go_to_sales_click(self, **event_args):
     open_form('SalesForm')  # Navigate to the SalesForm
 
@@ -72,7 +72,11 @@ class Form1(Form1Template):
     current_user = anvil.users.get_user()
     if current_user is not None:
       anvil.users.logout()
+      open_form('LoadingForm')
       anvil.users.login_with_form()
+
+
+  
       
 
 

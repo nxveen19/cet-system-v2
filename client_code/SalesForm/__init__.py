@@ -20,7 +20,7 @@ class SalesForm(SalesFormTemplate):
     self.sales_grid.add_event_handler("x-edit-sale", self.edit_sale)
     self.sales_grid.add_event_handler("x-delete-sale", self.delete_sale)
     
-    self.sales_grid.items = app_tables.sales.search()
+    self.sales_grid.items = anvil.server.call('get_sales_for_user')
     #self.refresh_sales_grid()
     #self.orders_grid.add_event_handler("x-edit-order", self.edit_order)
 
@@ -76,7 +76,7 @@ class SalesForm(SalesFormTemplate):
       anvil.server.call("delete_sale", sale)
       print(sale)
       # refresh the Data Grid
-      self.sales_grid.items = app_tables.sales.search()
+      self.sales_grid.items = anvil.server.call('get_sales_for_user')
 
   def calculate_and_update_commission(self, sale):
     # Calculate commission for the given sale row
@@ -115,7 +115,7 @@ class SalesForm(SalesFormTemplate):
       # Refresh the grid to show updated commission
 
   def refresh_sales_grid(self):
-    sales_data = app_tables.sales.search()
+    sales_data = anvil.server.call('get_sales_for_user')
     # Prepare a list to hold the formatted data
     formatted_sales_data = []
 

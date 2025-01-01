@@ -13,6 +13,8 @@ def add_customer(customer_data):
   customer_id = str(uuid.uuid4())  # Generates a unique string like 'c9b1b3d8-8f93-45ea-a8f7-8e1f6b1d333f'
   customer_data['customer_ref_id'] = customer_id
   current_user = anvil.users.get_user()
+  if not current_user:
+    raise Exception("User not logged in")
   customer_data['user'] = current_user
   if customer_data.get('name') and customer_data.get('post_code') and customer_data.get('phone') and customer_data.get('email') and customer_data.get('address'):
     print("Received customer data:", customer_data)
@@ -25,11 +27,18 @@ def add_customer(customer_data):
 # server me update fn(it connects directly to db)
 def update_customer(customer, customer_data):
   # customer_data = {} items from CustomerEdit are appended into it
+  current_user = anvil.users.get_user()
+  if not current_user:
+    raise Exception("User not logged in")
   if customer_data['name'] and customer_data['post_code'] and customer_data['phone'] and customer_data['phone'] and customer_data['address']:
     customer.update(**customer_data)
+
 @anvil.server.callable
 def delete_customer(customer):
-    customer.delete()
+  current_user = anvil.users.get_user()
+  if not current_user:
+    raise Exception("User not logged in")
+  customer.delete()
 
 ##############################SALES DETAILS MODULE
 @anvil.server.callable
@@ -39,6 +48,8 @@ def add_sales(sales_data):
     order_id = str(uuid.uuid4())  # Generate a unique order ID
     sales_data['order_id'] = order_id
     current_user = anvil.users.get_user()
+    if sales_data['user'] != current_user:
+      raise Exception("Permission denied: Cannot update data not owned by you.")
     sales_data['user'] = current_user
     # Validate required fields
     required_fields = ['type', 'customer_ref_number', 'customer_ref', 'products_sold', 'order_value', 'discount', 'commission']
@@ -83,6 +94,9 @@ def update_sale(sale, sale_data):
   # print(sale)
   # print(sale_data)
   sale_data['date'] = datetime.now().date()
+  current_user = anvil.users.get_user()
+  if sale_data['user'] != current_user:
+    raise Exception("Permission denied: Cannot update data not owned by you.")
   # current_user = anvil.users.get_user()
   # sale_data['user'] = current_user
   existing_row_in_order = app_tables.orders.get(order_id=sale_data['order_id'])
@@ -95,11 +109,17 @@ def update_sale(sale, sale_data):
 
 @anvil.server.callable
 def delete_sale(sale):
+  current_user = anvil.users.get_user()
+  if sale['user'] != current_user:
+    raise Exception("Permission denied: Cannot update data not owned by you.")
   sale.delete()
 
 #########################Order Details module
 @anvil.server.callable
 def add_order_details(order, order_data):
+  current_user = anvil.users.get_user()
+  if not current_user:
+    raise Exception("Permission denied: Cannot update data not owned by you.")
   if order_data['order_id'] and order_data['status'] and order_data['installation_status'] and order_data['deposit_amount'] and order_data['final_amount']:
     order.update(**order_data)
   else:
@@ -107,16 +127,52 @@ def add_order_details(order, order_data):
 
 @anvil.server.callable
 def add_commission_details(commission, commission_data):
+  current_user = anvil.users.get_user()
+  if not current_user:
+    raise Exception("Permission denied: Cannot update data not owned by you.")
   commission_data['commission_pending'] = commission_data['due_commission'] - commission_data['commission_received']
   if commission_data['order_id'] and commission_data['due_commission']:
     commission.update(**commission_data)
   else:
     print("Missing field in adding commission")
 
+# @anvil.server.callable
+# def get_secret_data():
+#   user = anvil.users.get_user()
+#   if user['email'] == 'tinktankstudio@gmail.com':
+#     return app_tables.secret_table.client_readable()
+
 @anvil.server.callable
-def get_secret_data():
-  user = anvil.users.get_user()
-  if user['email'] == 'tinktankstudio@gmail.com':
-    return app_tables.secret_table.client_readable()
+def get_customers_for_user():
+    current_user = anvil.users.get_user()
+    if not current_user:
+        raise Exception("User not logged in")
+    # Fetch rows only linked to the current user
+    return app_tables.customers.search(user=current_user)
+
+@anvil.server.callable
+def get_sales_for_user():
+    current_user = anvil.users.get_user()
+    if not current_user:
+        raise Exception("User not logged in")
+    # Fetch rows only linked to the current user
+    return app_tables.sales.search(user=current_user)
+
+@anvil.server.callable
+def get_orders_for_user():
+    current_user = anvil.users.get_user()
+    if not current_user:
+      raise Exception("User not logged in")
+    # Fetch rows only linked to the current user
+    return app_tables.orders.search(user=current_user)
+
+@anvil.server.callable
+def get_commission_for_user():
+    current_user = anvil.users.get_user()
+    if not current_user:
+        raise Exception("User not logged in")
+    # Fetch rows only linked to the current user
+    return app_tables.commission.search(user=current_user)
+
   
   

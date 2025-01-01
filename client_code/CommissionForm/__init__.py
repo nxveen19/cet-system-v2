@@ -14,7 +14,7 @@ class CommissionForm(CommissionFormTemplate):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
     self.commission_grid.add_event_handler('x-edit-commission', self.edit_commission)
-    self.commission_grid.items = app_tables.commission.search()
+    self.commission_grid.items = anvil.server.call('get_commission_for_user')
     # Any code you write here will run before the form opens.
   def edit_commission(self, commission_row, **event_args):
     item = dict(commission_row)
@@ -22,7 +22,7 @@ class CommissionForm(CommissionFormTemplate):
     if alert(content=editing_form, large=True):
       print("Item Data:", item)
       anvil.server.call("add_commission_details", commission_row, item)
-      self.commission_grid.items = app_tables.commission.search()
+      self.commission_grid.items = anvil.server.call('get_commission_for_user')
       # self.calculate_outstanding_balance(order)
 
   def go_to_home_click(self, **event_args):

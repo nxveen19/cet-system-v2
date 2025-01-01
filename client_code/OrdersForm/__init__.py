@@ -16,7 +16,7 @@ class OrdersForm(OrdersFormTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
-    self.orders_grid.items = app_tables.orders.search()
+    self.orders_grid.items = anvil.server.call('get_orders_for_user')
     self.orders_grid.add_event_handler("x-edit-order", self.edit_order)
     self.refresh_orders_grid()
   ########## Sales Details : date, type, products, order value, discount, commission, notes
@@ -44,11 +44,11 @@ class OrdersForm(OrdersFormTemplate):
       outstanding_balance = 0
       # Update only the 'calculated_commission' for this specific sale
     order.update(outstanding_balance=outstanding_balance)
-    self.orders_grid.items = app_tables.orders.search()
+    self.orders_grid.items = anvil.server.call('get_orders_for_user')
     # self.refresh_sales_grid()  # Refresh the grid to show updated commission
 
   def refresh_orders_grid(self):
-    self.orders_grid.items = app_tables.orders.search()
+    self.orders_grid.items = anvil.server.call('get_orders_for_user')
     
 
   def back_to_customer_click(self, **event_args):
