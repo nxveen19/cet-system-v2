@@ -13,6 +13,16 @@ components:
   name: customer_ref_number
   properties: {}
   type: TextBox
+- layout_properties: {grid_position: 'CLZIZB,PXZEQZ'}
+  name: label_7
+  properties: {text: 'Order Value :'}
+  type: Label
+- data_bindings:
+  - {code: 'self.item[''order_value'']', property: text, writeback: true}
+  layout_properties: {grid_position: 'CLZIZB,TWHHLL'}
+  name: order_value
+  properties: {}
+  type: TextBox
 - layout_properties: {grid_position: 'DDPKYS,NIHJGC'}
   name: label_2
   properties: {text: 'Status Of Order :'}
