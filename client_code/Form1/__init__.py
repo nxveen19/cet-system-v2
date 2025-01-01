@@ -1,5 +1,8 @@
 from ._anvil_designer import Form1Template
 from anvil import *
+import anvil.google.auth, anvil.google.drive
+from anvil.google.drive import app_files
+import anvil.users
 import anvil.server
 import anvil.tables as tables
 import anvil.tables.query as q
@@ -13,6 +16,8 @@ class Form1(Form1Template):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
+    anvil.users.login_with_form()
+    
     self.customer_grid.items = app_tables.customers.search()
     #self.sales_grid.items = app_tables.sales.search()
     self.customer_grid.add_event_handler('x-go-to-sales', self.go_to_sales_click)
@@ -61,6 +66,13 @@ class Form1(Form1Template):
 
   def go_to_commission_click(self, **event_args):
     open_form('CommissionForm')
+
+  def logout_click(self, **event_args):
+    current_user = anvil.users.get_user()
+    if current_user is not None:
+      anvil.users.logout()
+      anvil.users.login_with_form()
+      
 
 
 
