@@ -48,9 +48,10 @@ def add_sales(sales_data):
     order_id = str(uuid.uuid4())  # Generate a unique order ID
     sales_data['order_id'] = order_id
     current_user = anvil.users.get_user()
+    sales_data['user'] = current_user
     if sales_data['user'] != current_user:
       raise Exception("Permission denied: Cannot update data not owned by you.")
-    sales_data['user'] = current_user
+    
     # Validate required fields
     required_fields = ['type', 'customer_ref_number', 'customer_ref', 'products_sold', 'order_value', 'discount', 'commission']
     if not all(sales_data.get(field) for field in required_fields):
