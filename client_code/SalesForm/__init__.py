@@ -40,7 +40,7 @@ class SalesForm(SalesFormTemplate):
       self.calculate_and_update_commission(new_sale)
       # refresh the Data Grid
       self.refresh_sales_grid()
-    customer_ref_number = item['customer_ref_number'].strip('-')
+    customer_ref_number = item['customer_ref_number'].replace('-', '')
     if len(customer_ref_number) > 12:
       alert("Customer Reference Number must be 12 characters or fewer.")
 
@@ -65,7 +65,7 @@ class SalesForm(SalesFormTemplate):
         existing_row_commission.update(customer_ref_number=sale['customer_ref_number'])
       self.refresh_sales_grid()
       # refresh the Data Grid
-    customer_ref_number = item['customer_ref_number'].strip('-')
+    customer_ref_number = item['customer_ref_number'].replace('-', '')
     if len(customer_ref_number) > 12:
       alert("Customer Reference Number must be 12 characters or fewer.")
       

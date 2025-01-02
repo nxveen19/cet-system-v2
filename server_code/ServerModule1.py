@@ -53,17 +53,18 @@ def add_sales(sales_data):
       raise Exception("Permission denied: Cannot update data not owned by you.")
     
     # Validate required fields
-    required_fields = ['type', 'customer_ref_number', 'customer_ref', 'products_sold', 'order_value', 'discount', 'commission']
+    required_fields = ['type', 'customer_ref_number', 'customer_ref', 'products_sold', 'order_value', 'commission']
     if not all(sales_data.get(field) for field in required_fields):
         raise ValueError("Missing required sales data.")
 
     # Validate customer reference number length
     customer_ref_number = sales_data['customer_ref_number']
-    customer_ref_number_strip = customer_ref_number.strip('-')
-    if len(customer_ref_number_strip) <= 12:
-      new_sale = app_tables.sales.add_row(**sales_data)
-    else:
-      print("Customer Reference Number must be 12 characters or fewer.")
+    customer_ref_number_strip = customer_ref_number.replace('-', '')
+    if len(customer_ref_number_strip) > 12:
+      print(len(customer_ref_number))
+      raise ValueError("Customer Reference Number must be 12 characters or fewer.")
+      
+    new_sale = app_tables.sales.add_row(**sales_data)
 
     # Add sales row
     print("Received customer data:", sales_data)
@@ -103,8 +104,8 @@ def update_sale(sale, sale_data):
   existing_row_in_order = app_tables.orders.get(order_id=sale_data['order_id'])
   if existing_row_in_order:
     existing_row_in_order.update(order_value=sale_data['order_value'])
-  if sale_data['type'] and sale_data['customer_ref_number'] and sale_data['customer_ref'] and sale_data['products_sold'] and sale_data['order_value'] and sale_data['discount'] and sale_data['commission']:
-    customer_ref_number = sale_data['customer_ref_number'].strip('-')
+  if sale_data['type'] and sale_data['customer_ref_number'] and sale_data['customer_ref'] and sale_data['products_sold'] and sale_data['order_value'] and sale_data['commission']:
+    customer_ref_number = sale_data['customer_ref_number'].replace('-', '')
     if len(customer_ref_number) <= 12:
       sale.update(**sale_data)
 
@@ -121,7 +122,7 @@ def add_order_details(order, order_data):
   current_user = anvil.users.get_user()
   if not current_user:
     raise Exception("Permission denied: Cannot update data not owned by you.")
-  if order_data['order_id'] and order_data['status'] and order_data['installation_status'] and order_data['deposit_amount'] and order_data['final_amount']:
+  if order_data['order_id'] and order_data['status'] and order_data['installation_status'] and order_data['deposit_amount']:
     order.update(**order_data)
   else:
     print("Missing Field in adding order")
